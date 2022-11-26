@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+    <input th:hidden="*{blogs.id}">
+    <tr>
+        <th>Producer</th>
+        <th>Status</th>
+    </tr>
+    <tr>
+        <td th:text="${blogs.producer}"></td>
+        <td th:text="${blogs.status}"></td>
+
+    </tr>
+</table>
+
+</body>
+</html>

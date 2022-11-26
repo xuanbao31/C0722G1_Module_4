@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<h2>Trang Them Moi </h2>
+
+<form action="/create" method="post" th:object="${blog}">
+    <table>
+        <tr>
+            WorkName :
+            <td><input type="text" th:field="*{workName}"></td>
+            date:
+            <td><input type="date" th:field="*{date}"></td>
+            producer
+            <td><input type="text" th:field="*{producer}"></td>
+            status
+            <td><input type="text" th:field="*{status}"></td>
+        </tr>
+    </table>
+    <input type="submit" value="Create">
+    <!--    <a th:href="/">back to list</a>-->
+</form>
+</body>
+</html>
