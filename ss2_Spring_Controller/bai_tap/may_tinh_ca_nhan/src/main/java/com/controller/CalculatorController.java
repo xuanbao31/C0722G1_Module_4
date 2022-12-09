@@ -3,6 +3,7 @@ package com.controller;
 import com.service.ICalculatorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -23,12 +24,22 @@ public class CalculatorController {
     @GetMapping("/result")
     public ModelAndView result(@RequestParam String number1, String number2, String operator) {
         ModelAndView modelAndView = new ModelAndView("/index");
-        modelAndView.addObject("number1",number1);
-        modelAndView.addObject("number2",number2);
-        modelAndView.addObject("operator",operator);
+        modelAndView.addObject("number1", number1);
+        modelAndView.addObject("number2", number2);
+        modelAndView.addObject("operator", operator);
 //        return new ModelAndView("index", "result", calculatorService.calculator(number1, number2, operator));
-       String  result = calculatorService.calculator(number1, number2, operator);
-       modelAndView.addObject("result",result);
+        String result = calculatorService.calculator(number1, number2, operator);
+        modelAndView.addObject("result", result);
         return modelAndView;
+    }
+
+    @GetMapping("/result2")
+    public String calculator(@RequestParam String number1, String number2, String operator, Model model) {
+        model.addAttribute("number1", number1);
+        model.addAttribute("number2", number2);
+        model.addAttribute("operator", operator);
+        String result = calculatorService.calculator(number1, number2, operator);
+        model.addAttribute("result", result);
+        return "/index";
     }
 }

@@ -11,16 +11,20 @@ public class Blog {
     private String date;
     private String producer;
     private String status;
+    @ManyToOne
+    @JoinColumn(name = "category",referencedColumnName = "id")
+    private Category category;
 
     public Blog() {
     }
 
-    public Blog(int id, String workName, String date, String producer, String status) {
+    public Blog(int id, String workName, String date, String producer, String status, Category category) {
         this.id = id;
         this.workName = workName;
         this.date = date;
         this.producer = producer;
         this.status = status;
+        this.category = category;
     }
 
     public int getId() {
@@ -61,5 +65,13 @@ public class Blog {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

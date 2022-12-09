@@ -5,19 +5,19 @@
     <title>Title</title>
 </head>
 <body>
-<p></p>
+<a href="/create">Add To List</a>
 <table>
     <tr>
         <th>STT</th>
-       <th>WorkName</th>
+        <th>WorkName</th>
         <th>Date</th>
         <th>View</th>
     </tr>
     <tr th:each="list,a : ${blogs}">
-        <td th:text="${a.count}" ></td>
+        <td th:text="${a.count}"></td>
         <td th:text="${list.getWorkName()}"></td>
         <td th:text="${list.getDate()}"></td>
-                <td><a th:href="@{/{id}/view(id=${list.id})}">View</a></td>
+        <td><a th:href="@{/{id}/view(id=${list.id})}">View</a></td>
     </tr>
 
 

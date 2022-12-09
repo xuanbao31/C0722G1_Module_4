@@ -13,7 +13,7 @@
 <body>
 <h2>Vocabulary</h2>
 <form action="/dictionary/translate" method="post">
-    <p>Nhập từ điển bạn muốn đỏi</p>
+    <p>Nhập từ điển bạn muốn đổi</p>
     <input type="text" name="vocabulary">
     <input type="submit" value="kết quả">
 </form>

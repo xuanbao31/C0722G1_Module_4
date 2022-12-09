@@ -12,7 +12,7 @@
 </head>
 <body>
 <h2>Calculator</h2>
-<form action="/caculator/result">
+<form action="/caculator/result2">
     <input type="number" name="number1" placeholder="Number 1">
     <input type="number" name="number2" placeholder="Number 2">
     <br>
