@@ -12,7 +12,9 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -52,16 +54,56 @@ public class CustomerController {
     }
 
     @PostMapping("/create")
-    public String saveCreate(@ModelAttribute @Valid CustomerDto customerDto, BindingResult bindingResult, Model model) {
+    public String saveCreate(@Validated @ModelAttribute CustomerDto customerDto,
+                             BindingResult bindingResult,
+                             @PageableDefault(value = 4) Pageable pageable,
+                             Model model) {
         new CustomerDto().validate(customerDto, bindingResult);
         if (bindingResult.hasErrors()) {
             model.addAttribute("customerType", customerTypeService.findAll());
             return "/customer/create";
         } else {
             Customer customer = new Customer();
+            System.out.println(customerDto);
             BeanUtils.copyProperties(customerDto, customer);
             customerService.save(customer);
             return "redirect:/customer/list";
         }
+    }
+
+    @GetMapping("{id}/edit")
+    public String showEditForm(@PathVariable int id, Model model) {
+        Customer customer = customerService.findById(id);
+        CustomerDto customerDto = new CustomerDto();
+        BeanUtils.copyProperties(customer, customerDto);
+        model.addAttribute("customerDto", customerDto);
+        return "/customer/edit";
+    }
+
+    @PostMapping("/edit")
+    public String update(@ModelAttribute @Validated CustomerDto customerDto, BindingResult bindingResult, Model model) {
+        new CustomerDto().validate(customerDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/customer/edit";
+        } else {
+            Customer customer = new Customer();
+            BeanUtils.copyProperties(customerDto, customer);
+            customerService.save(customer);
+            return "redirect:/customer/list";
+        }
+    }
+    @GetMapping("{id}/delete")
+    public String showDeleteFormCustomer(@PathVariable int id, Model model) {
+        model.addAttribute("customer", customerService.findById(id));
+        model.addAttribute("customerType", customerTypeService.findAll());
+        return "customer/delete";
+    }
+
+    @PostMapping("/delete")
+    public String deleteCustomer(@ModelAttribute Customer customer, RedirectAttributes redirectAttributes) {
+        customer.setStatus(1);
+        customerService.save(customer);
+//            customerService.remove(customer.getId());
+        return "redirect:/customer/list";
     }
 }

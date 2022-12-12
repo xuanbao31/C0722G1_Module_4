@@ -2,7 +2,6 @@ package com.example.demo.model.customer;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import org.springframework.validation.annotation.Validated;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -10,14 +9,14 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 public class CustomerDto implements Validator {
-    private Integer id;
+    private int id;
     @NotBlank(message = "Không được để trống nha")
     @Pattern(regexp = "([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",
             message = "Viết hoa ở mỗi chữ cái đầu")
     private String name;
 
     @NotBlank(message = "Không được để trống nha")
-    private String dateOfBirth;
+    private String date;
 
 
     private Integer gender;
@@ -45,12 +44,12 @@ public class CustomerDto implements Validator {
     }
 
     public CustomerDto(Integer id, @NotBlank(message = "Không được để trống nha") @Pattern(regexp = "([\\p{Lu}][\\p{Ll}]{1,8})(\\s([\\p{Lu}]|[\\p{Lu}][\\p{Ll}]{1,10})){0,5}$",
-            message = "Viết hoa ở mỗi chữ cái đầu") String name, @NotBlank(message = "Không được để trống nha") String dateOfBirth, Integer gender, @NotBlank(message = "Không được để trống") @Pattern(regexp = "^([0-9]{9}|[0-9]{12})$",
+            message = "Viết hoa ở mỗi chữ cái đầu") String name, @NotBlank(message = "Không được để trống nha") String date, Integer gender, @NotBlank(message = "Không được để trống") @Pattern(regexp = "^([0-9]{9}|[0-9]{12})$",
             message = "Nhập Lại Đi Bạn") String idCard, @NotBlank(message = "Không được để trống") @Pattern(regexp = "^(090|091|\\\\(84\\\\)\\\\+90|\\\\(84\\\\)\\\\+91)[0-9]{7}$",
             message = "Số điện thoại phải đủ 10 số và phải bắt đầu bằng 090 or 091") String phoneNumber, @NotBlank(message = "Không được để trống") @Email(message = "Nhập đúng định dạng email dùm đi Fen") String email, @NotBlank(message = "Không được để trống") String address, Integer status, @NotNull(message = "không được để trống") CustomerType customerType) {
         this.id = id;
         this.name = name;
-        this.dateOfBirth = dateOfBirth;
+        this.date = date;
         this.gender = gender;
         this.idCard = idCard;
         this.phoneNumber = phoneNumber;
@@ -76,12 +75,12 @@ public class CustomerDto implements Validator {
         this.name = name;
     }
 
-    public String getDateOfBirth() {
-        return dateOfBirth;
+    public String getDate() {
+        return date;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
+    public void setDate(String date) {
+        this.date = date;
     }
 
     public Integer getGender() {

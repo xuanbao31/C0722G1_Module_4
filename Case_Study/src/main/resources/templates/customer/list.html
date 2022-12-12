@@ -10,8 +10,8 @@
 <body style="background: wheat">
 <h2>Customer List</h2>
 <form th:action="@{/customer/list}" method="get">
-    <input  th:type="text" name="name" placeholder="searchName">
-    <input  th:type="text" name="email" placeholder="searchEmail">
+    <input  th:type="text" name="name" placeholder="searchName" th:value="${name}">
+    <input  th:type="text" name="email" placeholder="searchEmail" th:value="${email}">
     <!--    <input class="form-control me-2 fst-italic" type="search" name="name" placeholder="Search"-->
     <!--           aria-label="Search">-->
     <!--    <input class="form-control me-2 fst-italic" type="search" name="email" placeholder="Search"-->
@@ -25,7 +25,7 @@
                 th:value="${item.name}" th:text="${item.name}">
         </option>
     </select>
-    <input  th:type="submit" name="action" value="findByName">
+    <input  th:type="submit" name="action" value="Search">
 </form>
 <a href="/customer/create" class="btn btn-primary">Add To List Customer</a>
 <table class="table table-success">
@@ -38,8 +38,10 @@
         <th>PhoneNumber</th>
         <th>Email</th>
         <th>Address</th>
-        <th>Status</th>
+<!--        <th>Status</th>-->
         <th>Customer Type</th>
+        <th>Edit</th>
+        <th>Delete</th>
     </tr>
     <tr th:each="customer,var:${customers}">
         <td th:text="${var.count+5*customers.number}"></td>
@@ -52,8 +54,10 @@
         <td th:text="${customer.phoneNumber}"></td>
         <td th:text="${customer.email}"></td>
         <td th:text="${customer.address}"></td>
-        <td th:text="${customer.status}"></td>
+<!--        <td th:text="${customer.status}"></td>-->
         <td th:text="${customer.customerType.name}"></td>
+        <td><a th:href="@{/customer/{id}/edit(id=${customer.id})}">Edit</a></td>
+        <td><a th:href="@{/customer/{id}/delete(id=${customer.id})}">Delete</a></td>
     </tr>
 </table>
 <div>
