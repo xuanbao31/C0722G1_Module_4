@@ -19,17 +19,17 @@ public class FacilityService implements IFacilityService {
 
     @Override
     public void save(Facility facility) {
-
+        facilityRepository.save(facility);
     }
 
     @Override
     public void remove(int id) {
-
+        facilityRepository.deleteById(id);
     }
 
     @Override
     public Facility findById(int id) {
-        return null;
+        return facilityRepository.findById(id).get();
     }
 
     @Override

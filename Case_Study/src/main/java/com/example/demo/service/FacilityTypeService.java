@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class FacilityTypeService implements IFacilityTypeService {
@@ -18,7 +19,9 @@ public class FacilityTypeService implements IFacilityTypeService {
     }
 
     @Override
-    public FacilityType findById(int id) {
-        return facilityTypeRepository.findById(id).get();
+    public Optional<FacilityType> findById(Integer id) {
+        return facilityTypeRepository.findById(id);
     }
+
+
 }

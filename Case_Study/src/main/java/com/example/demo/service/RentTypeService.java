@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RentTypeService implements IRentTypeService {
@@ -18,7 +19,9 @@ public class RentTypeService implements IRentTypeService {
     }
 
     @Override
-    public RentType findById(int id) {
-        return rentTypeRepository.findById(id).get();
+    public Optional<RentType> findById(Integer id) {
+        return rentTypeRepository.findById(id);
     }
+
+
 }
