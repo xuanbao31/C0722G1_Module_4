@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import com.example.demo.model.customer.Customer;
 import com.example.demo.model.customer.CustomerDto;
 import com.example.demo.model.customer.CustomerType;
+import com.example.demo.service.IContractService;
 import com.example.demo.service.ICustomerService;
 import com.example.demo.service.ICustomerTypeService;
 import org.springframework.beans.BeanUtils;
@@ -27,6 +28,8 @@ public class CustomerController {
 
     @Autowired
     private ICustomerTypeService customerTypeService;
+    @Autowired
+    private IContractService contractService;
 
     @ModelAttribute("customerTypes")
     public List<CustomerType> getCustomerTypes() {
@@ -92,6 +95,7 @@ public class CustomerController {
             return "redirect:/customer/list";
         }
     }
+
     @GetMapping("{id}/delete")
     public String showDeleteFormCustomer(@PathVariable int id, Model model) {
         model.addAttribute("customer", customerService.findById(id));
@@ -105,5 +109,17 @@ public class CustomerController {
         customerService.save(customer);
 //            customerService.remove(customer.getId());
         return "redirect:/customer/list";
+    }
+
+
+    @GetMapping("/show")
+    public String showCustomerService(@PageableDefault(value = 4) Pageable pageable,
+                                      Model model) {
+
+        model.addAttribute("customers", customerService.findAllCustomerService(pageable));
+        model.addAttribute("customerTypeList", customerTypeService.findAll());
+        model.addAttribute("contracts", contractService.listContract());
+
+        return "/customer/list2";
     }
 }

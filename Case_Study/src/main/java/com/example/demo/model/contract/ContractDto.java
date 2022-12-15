@@ -1,40 +1,41 @@
 package com.example.demo.model.contract;
 
 import com.example.demo.model.customer.Customer;
-import com.example.demo.model.employee.Employee;
 import com.example.demo.model.facility.Facility;
-import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-import javax.persistence.*;
 import java.util.Set;
 
-@Entity
-public class Contract {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class ContractDto implements Validator {
     private int id;
     private String startDate;
     private String endDate;
     private double deposit;
-    @JsonBackReference
-    @OneToMany(mappedBy = "contract")
     private Set<ContractDetail> contractDetails;
-
-    @ManyToOne
-    @JoinColumn(name = "customer_id", referencedColumnName = "id")
     private Customer customer;
-
-    @ManyToOne
-    @JoinColumn(name = "employee_id", referencedColumnName = "id")
-    private Employee employee;
-
-    @ManyToOne
-    @JoinColumn(name = "facility_id", referencedColumnName = "id")
     private Facility facility;
+    private Double totalPrice;
 
-    public Contract() {
+    public ContractDto() {
     }
 
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(Double totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public void getTotalcost(){
+        this.totalPrice = this.facility.getCost();
+        if (this.contractDetails != null) {
+            for (ContractDetail contractDetail : this.contractDetails){
+                this.totalPrice += contractDetail.getQuantity() * contractDetail.getAttachFacility().getCost();
+            }
+        }
+    }
 
     public int getId() {
         return id;
@@ -84,19 +85,23 @@ public class Contract {
         this.customer = customer;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public Facility getFacility() {
         return facility;
     }
 
     public void setFacility(Facility facility) {
         this.facility = facility;
+    }
+
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }

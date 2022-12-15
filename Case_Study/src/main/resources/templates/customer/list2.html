@@ -9,26 +9,7 @@
 </head>
 <body style="background: wheat">
 <h2>Customer List</h2>
-<form th:action="@{/customer/list}" method="get">
-    <input  th:type="text" name="name" placeholder="searchName" th:value="${name}">
-    <input  th:type="text" name="email" placeholder="searchEmail" th:value="${email}">
-    <!--    <input class="form-control me-2 fst-italic" type="search" name="name" placeholder="Search"-->
-    <!--           aria-label="Search">-->
-    <!--    <input class="form-control me-2 fst-italic" type="search" name="email" placeholder="Search"-->
-    <!--           aria-label="Search">-->
-    <select th:name="customerType">
-        <option value="" selected>
-            Choose something
-        </option>
-        <option
-                th:each="item : ${customerTypeList}"
-                th:value="${item.name}" th:text="${item.name}">
-        </option>
-    </select>
-    <input  th:type="submit" name="action" value="Search">
-</form>
-<a href="/customer/create" class="btn btn-primary">Add To List Customer</a>
-<a href="/customer/show" class="btn btn-success">Danh Sach Khach Hang Con Su Dung Dich Vu</a>
+<a href="/customer/list" class="btn btn-success">Danh Sach Khach Hang</a>
 <table class="table table-success">
     <tr>
         <th>STT</th>
@@ -39,7 +20,7 @@
         <th>PhoneNumber</th>
         <th>Email</th>
         <th>Address</th>
-<!--        <th>Status</th>-->
+        <!--        <th>Status</th>-->
         <th>Customer Type</th>
         <th>Edit</th>
         <th>Delete</th>
@@ -55,20 +36,20 @@
         <td th:text="${customer.phoneNumber}"></td>
         <td th:text="${customer.email}"></td>
         <td th:text="${customer.address}"></td>
-<!--        <td th:text="${customer.status}"></td>-->
+        <!--        <td th:text="${customer.status}"></td>-->
         <td th:text="${customer.customerType.name}"></td>
         <td><a th:href="@{/customer/{id}/edit(id=${customer.id})}">Edit</a></td>
         <td><a th:href="@{/customer/{id}/delete(id=${customer.id})}">Delete</a></td>
     </tr>
 </table>
 <div>
-    <a th:href="@{'/customer/list'(page=${customers.number - 1},name=${name}, email=${email},customerType=${customerType})}"
+    <a th:href="@{'/customer/show'(page=${customers.number - 1})}"
        th:if="${customers.hasPrevious()}">Previous</a>
 
     <span th:text="${customers.number + 1}"></span>
     <span th:text="${customers.totalPages }"></span>
 
-    <a th:href="@{'/customer/list'(page = ${customers.number + 1},name=${name}, email=${email},customerType=${customerType})}"
+    <a th:href="@{'/customer/show'(page = ${customers.number + 1})}"
        th:if="${customers.hasNext()}">Next</a>
 </div>
 

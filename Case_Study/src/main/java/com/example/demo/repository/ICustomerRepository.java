@@ -16,4 +16,11 @@ public interface ICustomerRepository extends JpaRepository<Customer,Integer> {
                                                                 @Param("customerType") String customerType
     );
 
+    @Query(value = " select c.* " +
+            "from `customer` c " +
+            "join `customer_type` ct on c.customer_type_id = ct.id " +
+            "left join `contract` ctr on c.id= ctr.customer_id " +
+            "where c.status=0 " +
+            "and curdate()<ctr.end_date ", nativeQuery = true)
+    Page<Customer> findAllCustomerService(Pageable pageable);
 }
