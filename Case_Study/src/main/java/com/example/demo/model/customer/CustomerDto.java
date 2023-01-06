@@ -18,7 +18,6 @@ public class CustomerDto implements Validator {
     @NotBlank(message = "Không được để trống nha")
     private String date;
 
-
     private Integer gender;
 
     @NotBlank(message = "Không được để trống")

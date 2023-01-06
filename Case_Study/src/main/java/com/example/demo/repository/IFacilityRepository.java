@@ -9,4 +9,5 @@ import org.springframework.data.jpa.repository.Query;
 public interface IFacilityRepository extends JpaRepository<Facility, Integer> {
     @Query(value = "select * from facility where name like %:name%", nativeQuery = true)
     Page<Facility> findByNameContaining(Pageable pageable, String name);
+
 }
