@@ -16,6 +16,9 @@ public class OrderBook {
     public OrderBook(int borrowCode, Book book) {
     }
 
+    public OrderBook() {
+    }
+
     public OrderBook(int id, int borrowCode, Book book) {
         this.id = id;
         this.borrowCode = borrowCode;
